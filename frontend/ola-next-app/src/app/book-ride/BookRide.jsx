@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import BookRideNavbar from "./BookRideNavbar";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
@@ -15,7 +15,11 @@ const validationSchema = Yup.object().shape({
 });
 
 const BookRide = () => {
-  const onFocused = () => {};
+  const [activeField, setActiveField] = useState("");
+  const onFocused = (e) => {
+    const name = e.target.name;
+    setActiveField(name);
+  };
 
   const handleOnSubmit = (values) => {
     console.log(values);
@@ -55,8 +59,7 @@ const BookRide = () => {
                 className="border-none outline-none"
                 onFocus={onFocused}
               />
-              {/* {activeField === "pickupLocation" &&
-                ride.results?.length > 0 &&
+              {activeField === "pickupLocation" &&
                 formik.values.pickupLocation && (
                   <div className="">
                     <SearchResult
@@ -66,7 +69,7 @@ const BookRide = () => {
                       area_key={"pickup_area"}
                     />
                   </div>
-                )} */}
+                )}
             </div>
 
             {formik.touched.pickupLocation && formik.errors.pickupLocation && (
@@ -94,8 +97,18 @@ const BookRide = () => {
                 className="border-none outline-none"
                 onFocus={onFocused}
               />
+              {activeField === "destinationLocation" &&
+                formik.values?.destinationLocation?.length > 0 && (
+                  <div className="">
+                    <SearchResult
+                      setActiveField={setActiveField}
+                      latitude_key={"destination_lattitude"}
+                      longitude_key={"destination_longitude"}
+                      area_key={"destination_area"}
+                    />
+                  </div>
+                )}
             </div>
-
             {formik.touched.destinationLocation &&
               formik.errors.destinationLocation && (
                 <div className="">
