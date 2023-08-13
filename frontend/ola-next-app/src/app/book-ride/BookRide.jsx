@@ -1,11 +1,12 @@
+"use client";
 import React, { useState } from "react";
 import BookRideNavbar from "./BookRideNavbar";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import SearchResult from "path-to-your-search-result-component";
 import * as Yup from "yup";
 import { Button } from "@mui/material";
 import AvailableCab from "./AvailableCab";
+import SearchResult from "./SearchResult";
 
 const validationSchema = Yup.object().shape({
   pickupLocation: Yup.string().required("Pickup location is required"),
