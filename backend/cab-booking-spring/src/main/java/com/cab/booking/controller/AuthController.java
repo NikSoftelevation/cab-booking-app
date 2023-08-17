@@ -22,12 +22,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/auth")
 public class AuthController {
 
     @Autowired
@@ -43,7 +41,7 @@ public class AuthController {
     @Autowired
     private DriverService driverService;
 
-    @PostMapping("/signin")
+    @PostMapping("/user/signup")
     public ResponseEntity<JwtResponse> signUpHandler(@RequestBody SignupRequest signUpRequest) {
 
         String email = signUpRequest.getEmail();
@@ -88,7 +86,7 @@ public class AuthController {
         return new ResponseEntity<>(jwtResponse, HttpStatus.ACCEPTED);
     }
 
-    @GetMapping
+    @PostMapping("/signin")
     public ResponseEntity<JwtResponse> signInHandler(@RequestBody LoginRequest loginRequest) {
 
         String username = loginRequest.getEmail();

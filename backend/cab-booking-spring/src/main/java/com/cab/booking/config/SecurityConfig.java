@@ -29,8 +29,11 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST, "/api/auth/**")
-                .permitAll().requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/")
-                .permitAll().requestMatchers(HttpMethod.GET, "/ws/**")
+                .permitAll().requestMatchers(HttpMethod.GET, "/api/auth/**")
+                .permitAll().
+                requestMatchers(HttpMethod.GET, "/")
+                .permitAll()
+                .anyRequest()
                 .authenticated()
                 .and()
                 .addFilterAfter(new JwtTokenGeneratorFilter(), BasicAuthenticationFilter.class)

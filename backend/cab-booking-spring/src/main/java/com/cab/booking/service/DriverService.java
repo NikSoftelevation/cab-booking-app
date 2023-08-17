@@ -12,17 +12,17 @@ public interface DriverService {
 
     public Driver registerDriver(DriverSignupRequest request);
 
-    public List<Driver> getAvailableDrivers(double pickupLatitude, double pickupLongitude, double radius, Ride ride);
+    public List<Driver> getAvailableDrivers(double pickupLatitude, double pickupLongitude, Ride ride);
 
     public Driver findNearestDriver(List<Driver> availableDrivers, double pickupLatitude, double pickupLongitude);
 
     public Driver getReqDriverProfile(String jwt) throws DriverException;
 
-    public Ride getDriversCurrentRide(int driverId) throws RideException;
+    public Ride getDriversCurrentRide(int driverId) throws RideException, DriverException;
 
     public List<Ride> getAllocatedRides(int driverId) throws RideException;
 
-    public Driver findDriverByDrierId(int driverId) throws DriverException;
+    public Driver findDriverByDriverId(int driverId) throws DriverException;
 
     public List<Ride> completedRides(int driverId) throws DriverException;
 }

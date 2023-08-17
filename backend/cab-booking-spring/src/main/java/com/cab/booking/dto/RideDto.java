@@ -1,36 +1,22 @@
-package com.cab.booking.domain;
+package com.cab.booking.dto;
 
+import com.cab.booking.domain.PaymentDetails;
 import com.cab.booking.enums.RideStatus;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Ride {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class RideDto {
     private int id;
-
-    @ManyToOne
-    private User user;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Driver driver;
-
-
-    @JsonIgnore
-    private List<Integer> declinedDrivers = new ArrayList<>();
+    private UserDto userDto;
+    private DriverDto driverDto;
 
     private double pickupLatitude;
 
@@ -55,7 +41,5 @@ public class Ride {
     private LocalDateTime endTime;
 
     private double fare;
-
     private int otp;
-
 }
