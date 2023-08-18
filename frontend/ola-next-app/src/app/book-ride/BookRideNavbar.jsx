@@ -14,8 +14,15 @@ import { useRouter } from "next/navigation";
 import { deepOrange } from "@mui/material/colors";
 import { Button } from "bootstrap";
 import { drawerList } from "./DrawerList";
+import { useDispatch, useSelector } from "react-redux";
 
 const BookRideNavbar = () => {
+  const dispatch = useDispatch();
+
+  const jwt = localStorage.getItem("jwt");
+
+  const { auth } = useSelector((state) => state);
+
   const [sidebarOpen, setSideBarOpen] = useState(false);
   const handleSidebarClose = () => {
     setSideBarOpen(false);
@@ -24,6 +31,10 @@ const BookRideNavbar = () => {
     setSideBarOpen(true);
   };
   const router = useRouter();
+
+  useEffect(() => {
+    dispatch(getUser(jwt));
+  }, []);
 
   return (
     <Box classname="">
@@ -47,15 +58,18 @@ const BookRideNavbar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Zosh Cab
           </Typography>
-          {true ? (
+          {auth.user?.fullName ? (
             <Avatar
               className="cursor-pointer"
               sx={{ bgcolor: deepOrange[500] }}
+              onClick={() => router.push("/profile")}
             >
-              A
+              {auth.user?.fullName[0]}
             </Avatar>
           ) : (
-            <Button color="inherit">Login</Button>
+            <Button onClick={() => router.push("/login")} color="inherit">
+              Login
+            </Button>
           )}
         </Toolbar>
       </AppBar>

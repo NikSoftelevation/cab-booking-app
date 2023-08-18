@@ -36,6 +36,11 @@ const BookRide = () => {
       }
     },
   });
+
+  // useEffect(() => {
+  //   dispatch(getUser(jwt));
+  // }, []);
+
   return (
     <div className="w-full">
       <BookRideNavbar />

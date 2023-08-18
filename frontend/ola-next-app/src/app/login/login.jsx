@@ -1,12 +1,11 @@
 "use client";
 import { getUser, login } from "@/app/Redux/Auth/Action";
-import { store } from "@/app/Redux/store";
 import WestIcon from "@mui/icons-material/West";
 import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
-import { useRouter, useSelectedLayoutSegment } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import * as yup from "yup";
 
 const validationSchema = yup.object().shape({
@@ -20,7 +19,8 @@ const Login = () => {
   const goBack = () => {
     router.back();
   };
-  const jwt = localStorage.getItem("jwt");
+  const jwt =
+    typeof window !== "undefined" ? localStorage.getItem("jwt") : null;
 
   const { auth } = useSelector((store) => store);
 

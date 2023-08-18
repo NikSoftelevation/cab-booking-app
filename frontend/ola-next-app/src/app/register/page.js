@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { Register } from './Register'
+import Register from './Register'
 import { Layout } from '../components/user/Loyout/Layout'
 
 const page = () => {

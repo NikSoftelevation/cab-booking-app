@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import WestIcon from "@mui/icons-material/West";
 import { useRouter } from "next/navigation";
 import { Avatar, Button } from "@mui/material";
@@ -8,13 +8,29 @@ import RideCar from "../components/user/RideCar/RideCar";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
 import WifiIcon from "@mui/icons-material/Wifi";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser, logout } from "../Redux/Auth/Action";
 
 const Profile = () => {
   const router = useRouter();
+  const jwt = localStorage.getItem("jwt");
+  const dispatch = useDispatch();
+  const { auth } = useSelector((state) => state);
 
   const goBack = () => {
     router.back();
   };
+
+  const handleLogout = () => {
+    dispatch(logout);
+    router.push("/book-ride");
+  };
+
+  useEffect(() => {
+    dispatch(getUser(jwt));
+  }, []);
+
+  console.log("Auth ", auth);
 
   return (
     <div className="px-2 lg:px-5">
@@ -24,8 +40,8 @@ const Profile = () => {
 
       <div className="flex flex-col items-center space-y-2">
         <Avatar sx={{ bgcolor: deepOrange[500] }} R></Avatar>
-        <p>Ram</p>
-        <p>7018218043</p>
+        <p>{auth.user?.fullName}</p>
+        <p>{auth.user?.mobile}</p>
       </div>
 
       <div className="border rounded-sm mt-5 ">
@@ -55,6 +71,7 @@ const Profile = () => {
 
       <div>
         <Button
+          onClick={handleLogout}
           className="w-full bg-red-500 text-white"
           variant="contained"
           color="error"
